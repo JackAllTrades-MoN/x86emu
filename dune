@@ -1,0 +1,14 @@
+(executable
+  (name main)
+  (public_name x86emulator)
+  (modules
+   const
+   binaryFile
+   I386Emulator
+   main
+  )
+  (libraries
+    core
+  )
+  (preprocess (pps ppx_jane))
+  (package x86emulator))

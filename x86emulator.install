@@ -1,0 +1,8 @@
+lib: [
+  "_build/install/default/lib/x86emulator/META" {"META"}
+  "_build/install/default/lib/x86emulator/dune-package" {"dune-package"}
+  "_build/install/default/lib/x86emulator/opam" {"opam"}
+]
+bin: [
+  "_build/install/default/bin/x86emulator" {"x86emulator"}
+]
