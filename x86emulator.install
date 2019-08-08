@@ -1,6 +1,22 @@
 lib: [
   "_build/install/default/lib/x86emulator/META" {"META"}
   "_build/install/default/lib/x86emulator/dune-package" {"dune-package"}
+  "_build/install/default/lib/x86emulator/i386/const.ml" {"i386/const.ml"}
+  "_build/install/default/lib/x86emulator/i386/emulator.ml" {"i386/emulator.ml"}
+  "_build/install/default/lib/x86emulator/i386/i386.a" {"i386/i386.a"}
+  "_build/install/default/lib/x86emulator/i386/i386.cma" {"i386/i386.cma"}
+  "_build/install/default/lib/x86emulator/i386/i386.cmi" {"i386/i386.cmi"}
+  "_build/install/default/lib/x86emulator/i386/i386.cmt" {"i386/i386.cmt"}
+  "_build/install/default/lib/x86emulator/i386/i386.cmx" {"i386/i386.cmx"}
+  "_build/install/default/lib/x86emulator/i386/i386.cmxa" {"i386/i386.cmxa"}
+  "_build/install/default/lib/x86emulator/i386/i386.cmxs" {"i386/i386.cmxs"}
+  "_build/install/default/lib/x86emulator/i386/i386.ml" {"i386/i386.ml"}
+  "_build/install/default/lib/x86emulator/i386/i386__Const.cmi" {"i386/i386__Const.cmi"}
+  "_build/install/default/lib/x86emulator/i386/i386__Const.cmt" {"i386/i386__Const.cmt"}
+  "_build/install/default/lib/x86emulator/i386/i386__Const.cmx" {"i386/i386__Const.cmx"}
+  "_build/install/default/lib/x86emulator/i386/i386__Emulator.cmi" {"i386/i386__Emulator.cmi"}
+  "_build/install/default/lib/x86emulator/i386/i386__Emulator.cmt" {"i386/i386__Emulator.cmt"}
+  "_build/install/default/lib/x86emulator/i386/i386__Emulator.cmx" {"i386/i386__Emulator.cmx"}
   "_build/install/default/lib/x86emulator/opam" {"opam"}
 ]
 bin: [

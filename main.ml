@@ -3,9 +3,9 @@ open Core
 let memory_size = 100
 
 let main filename =
-  let emu = I386Emulator.create_emu memory_size 0x0000 0x7c00 in
+  let emu = I386.Emulator.create_emu memory_size 0x0000 0x7c00 in
   let binary = BinaryFile.read filename in
-  (I386Emulator.update_memory emu binary |> I386Emulator.run); ()
+  I386.Emulator.(update_memory emu binary |> run); ()
 
 let filename_param = Command.Param.(anon ("filename" %: string))
 

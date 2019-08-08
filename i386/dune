@@ -1,0 +1,11 @@
+(library
+  (name i386)
+  (public_name x86emulator.i386)
+  (modules
+   const
+   emulator
+  )
+  (libraries
+    core
+  )
+  (preprocess (pps ppx_jane)))
