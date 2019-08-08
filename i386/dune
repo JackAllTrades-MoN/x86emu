@@ -2,7 +2,9 @@
   (name i386)
   (public_name x86emulator.i386)
   (modules
+   types
    const
+   instruction
    emulator
   )
   (libraries
