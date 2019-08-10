@@ -2,12 +2,13 @@
   (name main)
   (public_name x86emulator)
   (modules
-   binaryFile
    main
   )
   (libraries
     core
-    i386
+    x86emulator
+    x86emulator.config
+    x86emulator.emulator
   )
   (preprocess (pps ppx_jane))
   (package x86emulator))

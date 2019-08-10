@@ -1,14 +1,19 @@
 open Core
-open Types
 
-let to_signed8 x =
-  let sign = x lsr 7 in
-  let body = lnot (x - 1) |> (land) 0xFF in
-  if sign = 0 then x else (-1) * body
+type t = {register: Register.t; memory: Memory.t}
 
 let create_emu memory_size eip esp: t =
-  let init_reg = {eax = 0; ebx = 0; ecx = 0; edx = 0; esi = 0; edi = 0; esp = esp; ebp = 0;} in
-  {registers = init_reg; eflags = 0; memory = Array.create ~len:memory_size 0; eip = eip;}
+  let reg = Register.create eip esp in
+  let mem = Memory.create memory_size in
+  {register = reg; memory = mem}
+
+let load_program (emu: t) binary :t =
+  {emu with memory = Memory.load_program emu.memory binary}
+
+let fetch_and_decode (emu: t) : t -> t =
+  Code.fetch_code emu.memory
+
+let dump_information  =
 
 let update_memory (emu: t) data =
   if List.length data >= Array.length emu.memory
@@ -34,10 +39,6 @@ let instruction_of =
   | 0xEB -> Some short_jump
   | x when 0xB8 <= x && x < 0xB8 + Const.register_count -> Some mov_r32_imm32
   | _ -> None
-(*  let instraction = Array.create ~len:256 None in
-  List.iter ~f:(fun i -> instraction.(0xB8 + i) <- Some mov_r32_imm32) (List.range 0 8);
-  instraction.(0xEB) <- Some short_jump;
-  fun code -> instraction.(code) *)
 
 (*
 let run emu =

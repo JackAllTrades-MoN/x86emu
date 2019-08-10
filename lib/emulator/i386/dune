@@ -2,12 +2,17 @@
   (name i386)
   (public_name x86emulator.i386)
   (modules
-   types
-   const
-   instruction
-   emulator
+    const
+    state
+    register
+    memory
+    code
+    instruction
+    instance
   )
   (libraries
     core
+    x86emulator.util
+    x86emulator.binary
   )
   (preprocess (pps ppx_jane)))
