@@ -1,3 +1,4 @@
+(*
 open Core
 
 type t = State.t
@@ -5,7 +6,9 @@ type t = State.t
 let fetch_and_decode (t: t): Code.t =
   Code.get_code8 t.memory t.register 0
   |> function
-    | 0xEB -> {Code.prefix=None; opcode=Short_jump; modrm=None; sib=None; disp=None; imid=None}
+    | 0xEB ->
+       let imid = Code.get_sign_code8  
+ {Code.prefix=None; opcode=Short_jump; modrm=None; sib=None; disp=None; imid=None}
     | x when 0xB8 <= x && x < 0xB8 + Const.register_count ->
        let target = (Code.get_code8 t.memory t.register 0) - 0xB8 in
        let imid = Code.get_code32 t.memory t.register 1 in
@@ -33,3 +36,4 @@ let exec (t: t): t =
   inst t
 
 let pc (t: t) = t.register.eip
+*)

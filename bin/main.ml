@@ -1,14 +1,10 @@
 open Core
 
 let main machine filename =
-  let (module Machine: Emulator.MachineType) = match machine with
-    | Config.I386small -> (module I386.Instance: Emulator.MachineType)
+  let run = match machine with
+    | Config.I386small -> I386.Emulator.(mk_emulator () |> load_program filename |> run)
     | PC98VM -> failwith "unimplemented"
-  in
-  let module Emulator = Emulator.Make(Machine) in
-  (Emulator.mk_emulator ()
-   |> Emulator.load_program filename
-   |> Emulator.run) ()
+  in run ()
 
 let machine =
   Command.Arg_type.create (function

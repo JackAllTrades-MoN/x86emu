@@ -1,3 +1,4 @@
+open Core
 open Util.Util32bit
 
 type general = {eax: uint32; ebx: uint32; ecx: uint32;
@@ -39,5 +40,14 @@ let update_general (g: general) r_idx data =
 
 let update_register t r_idx data =
   {t with general = update_general t.general r_idx data}
+
+let get_register (t: t) r_idx =
+  let g = t.general in
+  let rlist = [g.eax; g.ecx; g.edx;
+               g.ebx; g.esp; g.ebp;
+               g.esi; g.edi] in
+  match List.nth rlist r_idx with
+  | None -> failwith @@ Printf.sprintf "Register %x does not exist" r_idx
+  | Some v -> v
 
 let inc_pc diff (t:t) = {t with eip = t.eip+diff}

@@ -1,9 +1,7 @@
 (library
   (name emulator)
   (public_name x86emulator.emulator)
-  (modules
-    emulator
-  )
+  (modules emulator)
   (libraries
     core
     i386

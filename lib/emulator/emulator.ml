@@ -1,5 +1,12 @@
-open Core
+module type EmulatorType = sig
+  type t
+  val mk_emulator: unit -> t
+  val dump_information: t -> unit
+  val load_program: string -> t -> t
+  val run: t -> unit -> unit
+end
 
+(*
 module type MachineType = sig
   type t
   val build: unit -> t
@@ -38,3 +45,4 @@ module Make(Machine: MachineType): EmulatorType = struct
     in
     main_loop emu |> dump_information
 end
+*)
