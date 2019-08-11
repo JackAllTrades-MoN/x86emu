@@ -83,6 +83,38 @@ let inc_rm32 disp modrm (reg, mem): Register.t * Memory.t =
   let value = get_rm32 disp modrm (reg, mem) in
   set_rm32 (reg, mem) disp modrm (value + 1)
 
+let push32 (reg, mem) value =
+  let addr = (Register.get_register reg Const.n_esp) - 4 in
+  (set_register32 reg Const.n_esp addr, set_memory32 mem addr value)
+
+let pop32 (reg, mem) =
+  let addr = Register.get_register reg Const.n_esp in
+  let ret  = Memory.get_memory32 mem addr in
+  set_register32 reg Const.n_esp (addr + 4), ret
+
+let push_r32 r_ix (reg, mem): Register.t * Memory.t =
+  let v = Register.get_register reg r_ix in
+  push32 (reg, mem) v
+
+let pop_r32 r_ix (reg, mem): Register.t * Memory.t =
+  let reg', v = pop32 (reg, mem) in
+  (set_register32 reg' r_ix v, mem)
+
+let call_rel32 diff (reg, mem): Register.t * Memory.t =
+  let reg, mem = push32 (reg, mem) (reg.eip) in
+  (Register.inc_pc diff reg, mem)
+
+let ret (reg, mem): Register.t * Memory.t =
+  let reg', v = pop32 (reg, mem) in
+  ({reg' with eip = v}, mem)
+
+let leave (reg, mem): Register.t * Memory.t =
+  let ebp = Register.get_register reg Const.n_ebp in
+  let reg = set_register32 reg Const.n_esp ebp in
+  let reg, v = pop32 (reg, mem) in
+  let reg = set_register32 reg Const.n_ebp v in
+  (reg, mem)
+
 let of_code (code: Code.t) =
   match code.opcode with
   | Code.Short_jump -> short_jump (Option.value_exn code.imid)
@@ -96,4 +128,9 @@ let of_code (code: Code.t) =
   | Sub_rm32_imm8 ->
      sub_rm32_imm8 code.disp (Option.value_exn code.modrm) (Option.value_exn code.imid)
   | Inc_rm32 -> inc_rm32 code.disp (Option.value_exn code.modrm)
+  | Push_r32 r_ix -> push_r32 r_ix
+  | Pop_r32 r_ix -> pop_r32 r_ix
+  | Call_rel32 -> call_rel32 (Option.value_exn code.imid)
+  | Ret -> ret
+  | Leave -> leave
   | Dummy_code -> failwith "This may be bug (Dummy code is used)"

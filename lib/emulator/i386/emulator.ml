@@ -55,6 +55,14 @@ let fetch_and_decode =
   | 0x01 ->
      inc_pc 1 >>= fun () ->
      update_modrm Code.(update_opcode Add_rm32_r32 empty)
+  | x when 0x50 <= x && x < 0x50 + Const.register_count ->
+     let r_ix = x - 0x50 in
+     inc_pc 1 >>= fun () ->
+     return Code.(empty |> update_opcode (Push_r32 r_ix))
+  | x when 0x58 <= x && x < 0x58 + Const.register_count ->
+     let r_ix = x - 0x58 in
+     inc_pc 1 >>= fun () ->
+     return Code.(empty |> update_opcode (Pop_r32 r_ix))
   | 0x83 ->
      inc_pc 1 >>= fun () ->
      update_modrm Code.empty
@@ -84,6 +92,13 @@ let fetch_and_decode =
      let value = Code.get_code32 mem reg 0 in
      inc_pc 4 >>= fun () ->
      return (Code.update_imid value code)
+  | 0xC9 ->
+     inc_pc 1 >>= fun () -> return Code.(empty |> update_opcode Leave)
+  | 0xE8 ->
+     let imid = Code.get_sign_code32 mem reg 1 in
+     inc_pc 5 >>= fun () ->
+     return Code.(empty |> update_opcode Call_rel32 |> update_imid imid)
+  | 0xC3 -> return Code.(empty |> update_opcode Ret)
   | 0xE9 ->
      let imid = Code.get_sign_code32 mem reg 1 in
      inc_pc 5 >>= fun () -> return @@ Code.(empty |> update_opcode Near_jump |> update_imid imid)

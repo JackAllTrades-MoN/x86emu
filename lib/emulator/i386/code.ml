@@ -11,6 +11,8 @@ type opcode =
   | Add_rm32_r32
   | Sub_rm32_imm8
   | Inc_rm32
+  | Push_r32 of int | Pop_r32 of int
+  | Call_rel32 | Ret | Leave
 type modrm  = {md: int; reg: int; rm: int;}
 type sib    = int
 type disp   = int
@@ -46,6 +48,8 @@ let str_of_opcode = function
   | Mov_rm32_imm32 -> "Mov_rm32_imm32" | Mov_rm32_r32 -> "Mov_rm32_r32"
   | Mov_r32_rm32 -> "Mov_r32_rm32" | Add_rm32_r32 -> "Add_rm32_r32"
   | Sub_rm32_imm8 -> "Sub_rm32_imm8" | Inc_rm32 -> "Inc_rm32"
+  | Push_r32 _ -> "Push_r32" | Pop_r32 _ -> "Pop_r32"
+  | Call_rel32 -> "Call_rel32" | Ret -> "Ret" | Leave -> "Leave"
 let str_of_modrm modrm =
   Printf.sprintf "{md: %d; reg: %d; rm:%d}" modrm.md modrm.reg modrm.rm
 let str_of_sib = string_of_int
