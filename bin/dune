@@ -9,6 +9,7 @@
     x86emulator
     x86emulator.config
     x86emulator.emulator
+    x86emulator.hardware
   )
   (preprocess (pps ppx_jane))
   (package x86emulator))

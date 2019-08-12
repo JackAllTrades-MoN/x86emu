@@ -1,0 +1,5 @@
+(library
+  (name hardware)
+  (public_name x86emulator.hardware)
+  (modules monitor)
+  (libraries core graphics))

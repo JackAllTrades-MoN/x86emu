@@ -29,6 +29,18 @@ lib: [
   "_build/install/default/lib/x86emulator/emulator/emulator.cmxa" {"emulator/emulator.cmxa"}
   "_build/install/default/lib/x86emulator/emulator/emulator.cmxs" {"emulator/emulator.cmxs"}
   "_build/install/default/lib/x86emulator/emulator/emulator.ml" {"emulator/emulator.ml"}
+  "_build/install/default/lib/x86emulator/hardware/hardware.a" {"hardware/hardware.a"}
+  "_build/install/default/lib/x86emulator/hardware/hardware.cma" {"hardware/hardware.cma"}
+  "_build/install/default/lib/x86emulator/hardware/hardware.cmi" {"hardware/hardware.cmi"}
+  "_build/install/default/lib/x86emulator/hardware/hardware.cmt" {"hardware/hardware.cmt"}
+  "_build/install/default/lib/x86emulator/hardware/hardware.cmx" {"hardware/hardware.cmx"}
+  "_build/install/default/lib/x86emulator/hardware/hardware.cmxa" {"hardware/hardware.cmxa"}
+  "_build/install/default/lib/x86emulator/hardware/hardware.cmxs" {"hardware/hardware.cmxs"}
+  "_build/install/default/lib/x86emulator/hardware/hardware.ml" {"hardware/hardware.ml"}
+  "_build/install/default/lib/x86emulator/hardware/hardware__Monitor.cmi" {"hardware/hardware__Monitor.cmi"}
+  "_build/install/default/lib/x86emulator/hardware/hardware__Monitor.cmt" {"hardware/hardware__Monitor.cmt"}
+  "_build/install/default/lib/x86emulator/hardware/hardware__Monitor.cmx" {"hardware/hardware__Monitor.cmx"}
+  "_build/install/default/lib/x86emulator/hardware/monitor.ml" {"hardware/monitor.ml"}
   "_build/install/default/lib/x86emulator/i386/code.ml" {"i386/code.ml"}
   "_build/install/default/lib/x86emulator/i386/const.ml" {"i386/const.ml"}
   "_build/install/default/lib/x86emulator/i386/emulator.ml" {"i386/emulator.ml"}

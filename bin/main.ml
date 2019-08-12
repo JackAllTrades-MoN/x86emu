@@ -23,4 +23,6 @@ let command =
     fun () -> main machine filename)
 
 let () =
+  let open Hardware.Monitor in
+(*  exec (); *)
   Command.run ~version:"1.0" ~build_info:"YS" command
