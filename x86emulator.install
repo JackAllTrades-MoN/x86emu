@@ -29,6 +29,7 @@ lib: [
   "_build/install/default/lib/x86emulator/emulator/emulator.cmxa" {"emulator/emulator.cmxa"}
   "_build/install/default/lib/x86emulator/emulator/emulator.cmxs" {"emulator/emulator.cmxs"}
   "_build/install/default/lib/x86emulator/emulator/emulator.ml" {"emulator/emulator.ml"}
+  "_build/install/default/lib/x86emulator/global.ml" {"global.ml"}
   "_build/install/default/lib/x86emulator/i386/code.ml" {"i386/code.ml"}
   "_build/install/default/lib/x86emulator/i386/const.ml" {"i386/const.ml"}
   "_build/install/default/lib/x86emulator/i386/emulator.ml" {"i386/emulator.ml"}
@@ -66,6 +67,7 @@ lib: [
   "_build/install/default/lib/x86emulator/i386/register.ml" {"i386/register.ml"}
   "_build/install/default/lib/x86emulator/i386/state.ml" {"i386/state.ml"}
   "_build/install/default/lib/x86emulator/opam" {"opam"}
+  "_build/install/default/lib/x86emulator/parseCmdLine.ml" {"parseCmdLine.ml"}
   "_build/install/default/lib/x86emulator/util/util.a" {"util/util.a"}
   "_build/install/default/lib/x86emulator/util/util.cma" {"util/util.cma"}
   "_build/install/default/lib/x86emulator/util/util.cmi" {"util/util.cmi"}
@@ -90,6 +92,12 @@ lib: [
   "_build/install/default/lib/x86emulator/x86emulator.cmxa" {"x86emulator.cmxa"}
   "_build/install/default/lib/x86emulator/x86emulator.cmxs" {"x86emulator.cmxs"}
   "_build/install/default/lib/x86emulator/x86emulator.ml" {"x86emulator.ml"}
+  "_build/install/default/lib/x86emulator/x86emulator__Global.cmi" {"x86emulator__Global.cmi"}
+  "_build/install/default/lib/x86emulator/x86emulator__Global.cmt" {"x86emulator__Global.cmt"}
+  "_build/install/default/lib/x86emulator/x86emulator__Global.cmx" {"x86emulator__Global.cmx"}
+  "_build/install/default/lib/x86emulator/x86emulator__ParseCmdLine.cmi" {"x86emulator__ParseCmdLine.cmi"}
+  "_build/install/default/lib/x86emulator/x86emulator__ParseCmdLine.cmt" {"x86emulator__ParseCmdLine.cmt"}
+  "_build/install/default/lib/x86emulator/x86emulator__ParseCmdLine.cmx" {"x86emulator__ParseCmdLine.cmx"}
 ]
 bin: [
   "_build/install/default/bin/x86emulator" {"x86emulator"}
