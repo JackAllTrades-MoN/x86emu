@@ -1,4 +1,4 @@
-use super::super::super::binary;
+use crate::binary;
 
 pub enum GRNames { EAX, EBX, ECX, EDX, ESI, EDI, ESP, EBP }
 

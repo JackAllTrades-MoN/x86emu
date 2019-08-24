@@ -1,23 +1,26 @@
 //! # i386 emulator
 //! TODO: write a documentation
 
-use super::super::config::Config;
-mod Core;
-use Core::State;
-use super::super::binary;
+mod core;
 
-pub fn run (cfg: &Config, filename: &str) {
+use self::core::State;
+use log::{debug, info};
+use crate::binary;
+use crate::config::Config;
+
+pub fn run (_cfg: &Config, filename: &str) {
     fn main_loop (st: State) {
-        println!("{}", st.to_string())
+        debug!("{}", &st.to_string());
     };
+    info!("run @ i386 emulator");
     let bin = binary::load(filename);
     let ist = State::init()
         .set_mem_size(1024 * 1024)
         .set_eip(0x7c00)
-        .set_esp(0x7c00);
+        .set_esp(0x7c00)
+        .allocate(&bin, 0x7c00);
     main_loop(ist);
 }
-
 
 #[test]
 fn test_run() {
