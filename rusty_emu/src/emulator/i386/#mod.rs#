@@ -14,7 +14,8 @@ pub fn run (cfg: &Config, filename: &str) {
     let ist = State::init()
         .set_mem_size(1024 * 1024)
         .set_eip(0x7c00)
-        .set_esp(0x7c00);
+        .set_esp(0x7c00)
+        .allocate(&bin, 0x7c00);
     main_loop(ist);
 }
 

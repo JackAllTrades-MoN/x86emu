@@ -1,3 +1,5 @@
+use super::super::super::binary;
+
 pub enum GRNames { EAX, EBX, ECX, EDX, ESI, EDI, ESP, EBP }
 
 pub struct Register {
@@ -76,5 +78,16 @@ impl State {
         gr[GRNames::ESP.to_idx()] = esp;
         let register_ = Register {general: gr, .. self.register };
         State {register: register_, .. self}
+    }
+    pub fn allocate(self, data:&binary::BinFile, offset: usize) -> State {
+        let mut mem_ = self.memory;
+        if data.len() + offset >= mem_.len() {
+            panic!("Out of Memory @ allocate ")
+        } else {
+            for (i, b) in data.iter().enumerate() {
+                mem_[offset + i] = b.clone();
+            }
+            State {memory: mem_, .. self}
+        }
     }
 }

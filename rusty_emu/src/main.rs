@@ -1,6 +1,7 @@
 
 mod config;
 mod emulator;
+mod binary;
 
 use emulator::i386;
 use config::Machine;
