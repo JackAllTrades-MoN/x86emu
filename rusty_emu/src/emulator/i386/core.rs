@@ -50,7 +50,7 @@ impl Register {
     pub fn to_string(&self) -> String {
         GRNames::all().iter().fold(
             "".to_string(),
-            |acc, x| format!("{}\n{} = 0x{}",
+            |acc, x| format!("{}\n{} = 0x{:X}",
                              acc,
                              x.to_string(),
                              self.general[x.to_idx()]))
@@ -63,5 +63,18 @@ impl State {
     }
     pub fn to_string(&self) -> String {
         self.register.to_string()
+    }
+    pub fn set_mem_size(self, size:usize) -> State {
+        State {memory: vec![0x0000; size], .. self }
+    }
+    pub fn set_eip(self, eip: u32) -> State {
+        let register_ = Register { eip:eip, .. self.register};
+        State {register: register_, .. self }
+    }
+    pub fn set_esp(self, esp: u32) -> State {
+        let mut gr = self.register.general;
+        gr[GRNames::ESP.to_idx()] = esp;
+        let register_ = Register {general: gr, .. self.register };
+        State {register: register_, .. self}
     }
 }

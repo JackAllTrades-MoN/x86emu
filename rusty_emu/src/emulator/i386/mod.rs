@@ -6,7 +6,10 @@ mod Core;
 use Core::State;
 
 pub fn run (cfg: &Config, filename: &str) {
-    let ist = State::init();
+    let ist = State::init()
+        .set_mem_size(1024 * 1024)
+        .set_eip(0x7c00)
+        .set_esp(0x7c00);
     fn main_loop (st: State) {
         println!("{}", st.to_string())
     };
