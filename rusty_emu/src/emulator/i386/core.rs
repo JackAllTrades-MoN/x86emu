@@ -129,9 +129,5 @@ impl State {
     pub fn fetch_i32(&self, offset:i32) -> i32 {
         self.fetch_u32(offset) as i32
     }
-/*
-    pub fn fetch_sign8(&self, offset: i32) -> u8 {
-        let idx = (self.register.eip as i32) + offset;
-        self.memory[idx as usize]
-    }*/
+
 }

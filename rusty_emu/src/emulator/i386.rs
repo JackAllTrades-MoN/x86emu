@@ -3,11 +3,13 @@
 
 mod core;
 mod instruction;
+mod display;
 
 use self::core::State;
 use log::{debug, info};
 use crate::binary;
 use crate::config::Config;
+use std::sync::{Arc, Mutex};
 
 pub fn run (_cfg: &Config, filename: &str) {
     fn main_loop (st: State) {
@@ -28,7 +30,10 @@ pub fn run (_cfg: &Config, filename: &str) {
         .set_eip(0x7c00)
         .set_esp(0x7c00)
         .allocate(&bin, 0x7c00);
-    main_loop(ist);
+    let vram = display::gen_vram();
+    let disp = display::Display::init();
+    std::thread::spawn(move || { main_loop(ist) });
+    disp.boot_display(Arc::new(Mutex::new(vram)));
 }
 
 #[test]
