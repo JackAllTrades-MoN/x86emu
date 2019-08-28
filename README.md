@@ -3,12 +3,11 @@
 ## How to run?
 
 ```
-// for ocaml implementation
+// for ocaml implementation (deprecated)
 dune exec x86emulator -- --dbg-mode --machine i386 ./test/helloworld_org.bin
 
 // for rust implementation
-cd rusty_emu
-cargo run -- --dbg-mode --machine i386 ../test/helloworld_org.bin
+cargo run -- --dbg-mode --machine i386 ./test/helloworld_org.bin
 
 ```
 
