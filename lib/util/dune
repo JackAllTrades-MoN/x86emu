@@ -1,6 +1,0 @@
-(library
-  (name util)
-  (public_name x86emulator.util)
-  (modules util32bit util8bit)
-  (libraries core)
-  (preprocess (pps ppx_jane)))
