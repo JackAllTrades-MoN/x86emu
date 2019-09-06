@@ -17,12 +17,12 @@ mod emulator;
 mod binary;
 
 use config::Machine;
-use emulator::i386;
+//use emulator::i386;
 use env_logger;
 use std::env;
 
 fn main() {
-    let (filename, cf) = config::parse();
+    let cf = config::parse();
     if cf.dbg_mode {
         env::set_var("RUST_LOG", "debug");
     } else {
@@ -30,7 +30,7 @@ fn main() {
     };
     env_logger::init();
     match cf.machine {
-        Machine::I386 => i386::run(&cf, &filename),
-        Machine::PC98 => unimplemented!()
+        Machine::I386 => emulator::i386::run(&cf, &cf.filename),
+        Machine::PC98 => emulator::pc9801vm::run(&cf),
     }
 }
