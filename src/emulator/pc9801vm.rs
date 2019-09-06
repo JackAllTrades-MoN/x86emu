@@ -5,6 +5,8 @@ mod display;
 mod cpu;
 mod ram;
 mod crt;
+mod sound;
+mod sysport;
 
 use log::{debug, info};
 //use crate::binary;
@@ -15,13 +17,8 @@ use cpu::Cpu;
 use ram::Ram;
 use ram::GVRam;
 use crt::Crt;
+use sysport::SysPort;
 
-pub struct SysPort {
-    pub a: u8, // read only port
-    pub b: u8, // read only port
-    pub c: u8, // writable port
-}
-impl SysPort { pub fn init() -> SysPort { SysPort{a:0, b:0, c:0,} } }
 pub struct Machine {
     pub cpu: Cpu,
     pub ram: Ram,
@@ -48,13 +45,21 @@ pub fn run (cfg: &Config) {
     let machine_ = machine.clone();
     std::thread::spawn(move || {
         'mainlp: loop {
-            let machine = machine_.lock().unwrap();
-            debug!("{}", &machine.to_string());
-            std::thread::sleep(std::time::Duration::from_millis(10));
+            {
+                let machine = machine_.lock().unwrap();
+                debug!("{}", &machine.to_string());
+            }
+            std::thread::sleep(std::time::Duration::from_millis(1000));
+            {
+                let mut machine = machine_.lock().unwrap();
+                machine.system_port.turn_on_buzzer();
+            }
             break 'mainlp;
         }
         debug!("{}", "finish_main_loop");
     });
+    let machine_ = machine.clone();
+    std::thread::spawn(move || { sound::boot_speaker(machine_) });
     let machine_ = machine.clone();
     display::boot_display(machine_);
 }

@@ -57,6 +57,36 @@ pub fn boot_display(machine: Arc<Mutex<Machine>>) -> () {
     let program = glium::Program::from_source(&display,
                                               vertex_shader_src,
                                               fragment_shader_src, None).unwrap();
+
+    let refresh = || {
+        let machine_ = machine.lock().unwrap();
+        let mut vs = Vec::new();
+
+        for y in 0..(crt.scry) {
+            let fy = (y as f32)/(crt.scry as f32) * 2.0 - 1.0;
+            for x in 0..(crt.scrx) {
+                let fx = (x as f32)/(crt.scrx as f32) * 2.0 - 1.0;
+                let GVRam(gvram) = machine_.graphics_ram;
+                let (r, g, b) = crt.palette[gvram[x + (y * crt.scrx)] as usize];
+                let (r, g, b) =
+                    (((r as f32) / 255.0), ((g as f32)/ 255.0), ((b as f32)/255.0));
+                vs.push(Vertex {position: [fx, fy], color: [r, g, b]});
+            }
+            //println!("fy:{}", fy);
+        }
+
+        let vertex_buffer = glium::VertexBuffer::new(&display, &vs).unwrap();
+        let indices = glium::index::NoIndices(glium::index::PrimitiveType::Points);
+
+        let mut target = display.draw();
+        target.clear_color(0.0, 0.0, 1.0, 1.0);
+        target.draw(&vertex_buffer, &indices, &program,
+                    &glium::uniforms::EmptyUniforms,
+                    &Default::default()).unwrap();
+
+        target.finish().unwrap();
+    };
+
     'render: loop{
         events.clear();
         events_loop.poll_events(|event| { events.push(event); });
@@ -71,38 +101,12 @@ pub fn boot_display(machine: Arc<Mutex<Machine>>) -> () {
                 glutin::Event::WindowEvent { event, .. } => {
                     match event {
                         glutin::WindowEvent::CloseRequested => break 'render,
+                        glutin::WindowEvent::Refresh => refresh(),
                         _ => (),
                     }
                 },
                 _ => (),
             }
         }
-
-        let machine_ = machine.lock().unwrap();
-        let mut vs = Vec::new();
-
-        for y in 0..(crt.scry) {
-            let fy = (y as f32)/(crt.scry as f32) * 2.0 - 1.0;
-            for x in 0..(crt.scrx) {
-                let fx = (x as f32)/(crt.scrx as f32) * 2.0 - 1.0;
-                let GVRam(gvram) = machine_.graphics_ram;
-                let (r, g, b) = crt.palette[gvram[x + (y * crt.scrx)] as usize];
-                let (r, g, b) =
-                    (((r as f32) / 255.0), ((g as f32)/ 255.0), ((b as f32)/255.0));
-                vs.push(Vertex {position: [fx, fy], color: [r, g, b]});
-            }
-            println!("fy:{}", fy);
-        }
-
-        let vertex_buffer = glium::VertexBuffer::new(&display, &vs).unwrap();
-        let indices = glium::index::NoIndices(glium::index::PrimitiveType::Points);
-
-        let mut target = display.draw();
-        target.clear_color(0.0, 0.0, 1.0, 1.0);
-        target.draw(&vertex_buffer, &indices, &program,
-                    &glium::uniforms::EmptyUniforms,
-                    &Default::default()).unwrap();
-
-        target.finish().unwrap();
     }
 }
