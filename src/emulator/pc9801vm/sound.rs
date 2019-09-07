@@ -1,10 +1,10 @@
 use std::sync::{Arc, Mutex};
 use log::{debug};
 
-use super::super::pc9801vm::Machine;
+use super::super::pc9801vm::PC9801VM;
 
 
-pub fn boot_speaker(machine: Arc<Mutex<Machine>>) -> () {
+pub fn boot_speaker(machine: Arc<Mutex<PC9801VM>>) -> () {
     loop {
         let machine = machine.lock().unwrap();
         let system_port = &machine.system_port;

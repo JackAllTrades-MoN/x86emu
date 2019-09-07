@@ -2,7 +2,7 @@ use glium::Surface;
 use glium::glutin;
 use std::sync::{Arc, Mutex};
 
-use super::super::pc9801vm::Machine;
+use super::super::pc9801vm::PC9801VM;
 use super::crt::Crt;
 use super::ram::GVRam;
 
@@ -14,7 +14,7 @@ struct Vertex {
 
 glium::implement_vertex!(Vertex, position, color);
 
-const vertex_shader_src: &str = r#"
+const VERTEX_SHADER_SRC: &str = r#"
         #version 140
 
         in vec2 position;
@@ -27,7 +27,7 @@ const vertex_shader_src: &str = r#"
 	}
     "#;
 
-const fragment_shader_src: &str = r#"
+const FRAGMENT_SHADER_SRC: &str = r#"
         #version 140
 
         in vec3 vColor;
@@ -38,7 +38,7 @@ const fragment_shader_src: &str = r#"
         }
     "#;
 
-pub fn boot_display(machine: Arc<Mutex<Machine>>) -> () {
+pub fn boot_display(machine: Arc<Mutex<PC9801VM>>) -> () {
     let mut crt = Crt::init();
     {
         let machine = machine.lock().unwrap();
@@ -55,8 +55,8 @@ pub fn boot_display(machine: Arc<Mutex<Machine>>) -> () {
     let display = glium::Display::new(window, context, &events_loop).unwrap();
     let mut events = Vec::new();
     let program = glium::Program::from_source(&display,
-                                              vertex_shader_src,
-                                              fragment_shader_src, None).unwrap();
+                                              VERTEX_SHADER_SRC,
+                                              FRAGMENT_SHADER_SRC, None).unwrap();
 
     let refresh = || {
         let machine_ = machine.lock().unwrap();

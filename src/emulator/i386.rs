@@ -1,5 +1,5 @@
-//! # i386 emulator
-//! TODO: write a documentation
+/// # i386 emulator
+/// TODO: write a documentation
 
 mod core;
 mod instruction;

@@ -9,11 +9,12 @@
 //use emulator::i386;
 //use config::Machine;
 //use env_logger;
-//use env_logger::log::{error, warn, info, debug};
-//use std::env;
+//! Simple and Easy to Use X86 (PC9801VM) Emulator
+//!
+//! # TODO: to write
 
-mod config;
-mod emulator;
+pub mod config;
+pub mod emulator;
 mod binary;
 
 use config::Machine;
@@ -30,7 +31,7 @@ fn main() {
     };
     env_logger::init();
     match cf.machine {
-        Machine::I386 => emulator::i386::run(&cf, &cf.filename),
+        Machine::I386 => unimplemented!(), //emulator::i386::run(&cf, &cf.filename),
         Machine::PC98 => emulator::pc9801vm::run(&cf),
     }
 }

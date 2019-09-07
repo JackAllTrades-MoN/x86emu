@@ -1,6 +1,9 @@
-mod register;
+/// # intel80286
+/// the official manual is available from: 
+/// http://bitsavers.trailing-edge.com/components/intel/80286/210498-005_80286_and_80287_Programmers_Reference_Manual_1987.pdf
 
-//use crate::binary;
+mod register;
+pub mod instruction;
 
 use register::Register;
 
@@ -13,8 +16,12 @@ impl Cpu {
         Cpu { register: Register::init() }
     }
     pub fn to_string(&self) -> String {
-        format!("{}\n{} = 0x{:X}", self.register.to_string(), "EIP", self.register.eip)
+        format!("{}\n{} = 0x{:X}", self.register.to_string(), "EIP", self.register.ip)
     }
+    pub fn get_ip(&self) -> u16 {
+        self.register.ip
+    }
+    pub fn inc_ip(&mut self) -> 
 /*
     pub fn set_mem_size(self, size:usize) -> State {
         State {memory: vec![0x0000; size], .. self }
