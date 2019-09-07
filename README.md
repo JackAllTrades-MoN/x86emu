@@ -11,5 +11,10 @@ cargo run -- --dbg-mode --machine i386 ./test/helloworld_org.bin
 
 ```
 
+## Document generation
+```
+cargo doc --no-deps
+```
+
 ## options
 TODO: to write
