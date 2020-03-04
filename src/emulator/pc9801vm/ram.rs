@@ -1,3 +1,10 @@
+pub type Ram = [u8; 384000];
+pub type GVRam = [u8; 256000]; // 256Kbyte if graphics board with 16 colors is used
+
+pub fn create_ram() -> Ram { [0; 384000] }
+pub fn create_gvram() -> GVRam { [0; 256000] }
+
+/*
 pub struct Ram([u8; 384000]);
 pub struct GVRam(pub [u8; 256000]); // 256Kbyte if graphics board with 16 colors is used
 // 192Kbyte is used if not
@@ -14,3 +21,4 @@ impl Ram {
 impl GVRam {
     pub fn init() -> GVRam { GVRam([0; 256000]) }
 }
+*/

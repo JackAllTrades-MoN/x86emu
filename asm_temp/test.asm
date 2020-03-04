@@ -1,0 +1,2 @@
+add bx,word +0x01
+add ebx,dword +0x01

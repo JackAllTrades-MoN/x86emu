@@ -39,7 +39,7 @@ impl PC9801VM {
     pub fn fetch(&mut self) -> u8 {
         let addr = self.cpu.get_ip();
         let byte = self.ram.fetch_u8(addr as usize);
-        self.inc_ip(1);
+        self.cpu.inc_ip(1);
         byte
     }
     pub fn decode(&self, bytes: &Vec<u8>) -> Option<Code> { None }
